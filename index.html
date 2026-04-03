@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prapul Nanjala — Financial Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:     #0D0D0D;
+    --paper:   #F5F2ED;
+    --gold:    #B8892A;
+    --gold-lt: #E8C97A;
+    --slate:   #2C2C2C;
+    --muted:   #6B6560;
+    --rule:    #DDD8D0;
+    --card-bg: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(245, 242, 237, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; letter-spacing: .01em;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 80px;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1.05; letter-spacing: -.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 19px); font-weight: 300;
+    color: var(--muted); max-width: 580px;
+    margin-bottom: 48px; line-height: 1.6;
+  }
+  .hero-metrics {
+    display: flex; gap: 40px; flex-wrap: wrap;
+    padding: 28px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  .metric-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; color: var(--ink); line-height: 1;
+  }
+  .metric-val span { font-size: 20px; color: var(--gold); }
+  .metric-lbl { font-size: 12px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: #fff;
+    padding: 14px 28px; border-radius: 4px;
+    font-size: 13px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+    text-decoration: none; transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--ink);
+    padding: 14px 28px; border-radius: 4px;
+    border: 1px solid var(--rule);
+    font-size: 13px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+    text-decoration: none; transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── SECTIONS ────────────────────────────────── */
+  section { max-width: 1100px; margin: 0 auto; padding: 96px 48px; }
+  .sec-label {
+    font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sec-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .sec-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 44px); line-height: 1.15;
+    color: var(--ink); margin-bottom: 48px;
+  }
+  .sec-divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+  /* ── ABOUT ───────────────────────────────────── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 16px; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-skills { display: flex; flex-direction: column; gap: 0; }
+  .skill-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--rule);
+  }
+  .skill-row:first-child { border-top: 1px solid var(--rule); }
+  .skill-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .skill-tags { font-size: 12px; color: var(--muted); text-align: right; max-width: 240px; }
+
+  /* ── EXPERIENCE ──────────────────────────────── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px; padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--rule); }
+  .exp-meta { }
+  .exp-period { font-size: 12px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .exp-company { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--ink); line-height: 1.2; margin-bottom: 4px; }
+  .exp-loc { font-size: 13px; color: var(--muted); }
+  .exp-content { }
+  .exp-role { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 16px; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .exp-bullets li {
+    font-size: 14px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.55;
+  }
+  .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--gold); }
+  .exp-tag {
+    display: inline-block; margin-top: 16px; margin-right: 6px;
+    font-size: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 2px;
+    background: var(--paper); border: 1px solid var(--rule); color: var(--muted);
+  }
+
+  /* ── PROJECTS ────────────────────────────────── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .proj-card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 32px;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    position: relative; overflow: hidden;
+  }
+  .proj-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .proj-card:hover { transform: translateY(-4px); border-color: var(--gold-lt); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .proj-card:hover::before { transform: scaleX(1); }
+  .proj-icon {
+    width: 40px; height: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--paper); border-radius: 4px;
+    font-size: 18px;
+  }
+  .proj-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink); margin-bottom: 10px; line-height: 1.2; }
+  .proj-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .proj-highlights { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+  .proj-hl { font-size: 13px; color: var(--ink); display: flex; align-items: flex-start; gap: 8px; }
+  .proj-hl::before { content: '→'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+  .proj-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+  .proj-tool {
+    font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px;
+    background: var(--paper); border: 1px solid var(--rule); color: var(--muted);
+  }
+
+  /* ── CONTACT ─────────────────────────────────── */
+  .contact-block {
+    background: var(--slate);
+    border-radius: 4px;
+    padding: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    flex-wrap: wrap;
+  }
+  .contact-left { }
+  .contact-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; color: #fff; margin-bottom: 12px; line-height: 1.2;
+  }
+  .contact-title em { font-style: italic; color: var(--gold-lt); }
+  .contact-sub { font-size: 15px; color: rgba(255,255,255,.55); max-width: 360px; }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: rgba(255,255,255,.7);
+    text-decoration: none; transition: color .2s;
+  }
+  .contact-link:hover { color: var(--gold-lt); }
+  .contact-link-icon {
+    width: 32px; height: 32px; border-radius: 4px;
+    background: rgba(255,255,255,.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  footer {
+    text-align: center; padding: 32px 48px;
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── ANIMATIONS ──────────────────────────────── */
+  .fade-up { opacity: 0; transform: translateY(24px); animation: fadeUp .7s ease forwards; }
+  .fade-up:nth-child(1) { animation-delay: .1s; }
+  .fade-up:nth-child(2) { animation-delay: .2s; }
+  .fade-up:nth-child(3) { animation-delay: .3s; }
+  .fade-up:nth-child(4) { animation-delay: .4s; }
+  .fade-up:nth-child(5) { animation-delay: .5s; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero, section { padding-left: 24px; padding-right: 24px; }
+    .hero { padding-top: 100px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .exp-item { grid-template-columns: 1fr; gap: 16px; }
+    .contact-block { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Prapul Nanjala</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow fade-up">Financial Analyst · Atlanta, GA</div>
+  <h1 class="fade-up">Turning numbers<br>into <em>decisions.</em></h1>
+  <p class="hero-sub fade-up">3+ years driving FP&A, financial modeling, and executive reporting at Citigroup and Mahindra & Mahindra Financial Services. DCF · IRR · NPV · Power BI · SQL.</p>
+
+  <div class="hero-metrics fade-up">
+    <div>
+      <div class="metric-val">40<span>%</span></div>
+      <div class="metric-lbl">Reporting time cut via automation</div>
+    </div>
+    <div>
+      <div class="metric-val">15–20<span>%</span></div>
+      <div class="metric-lbl">Forecast accuracy improvement</div>
+    </div>
+    <div>
+      <div class="metric-val">$50<span>M+</span></div>
+      <div class="metric-lbl">M&A transactions supported</div>
+    </div>
+    <div>
+      <div class="metric-val">5<span>+</span></div>
+      <div class="metric-lbl">Business units consolidated</div>
+    </div>
+  </div>
+
+  <div class="hero-cta fade-up">
+    <a class="btn-primary" href="Prapul_Nanjala_Final_Resume.docx" download>
+      ↓ Download Resume
+    </a>
+    <a class="btn-outline" href="#contact">Get in Touch</a>
+  </div>
+</div>
+
+<hr class="sec-divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">About</div>
+  <div class="sec-title">Finance meets strategy.</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Financial Analyst with hands-on experience across banking, corporate finance, and lending portfolios. At Citigroup, I work at the intersection of data and decision-making — building the models and dashboards that senior leadership rely on to allocate capital and plan quarters.</p>
+      <p>Before that, I contributed to $50M+ M&A transactions at Mahindra & Mahindra Financial Services, developing credit risk frameworks and valuation models presented at board level.</p>
+      <p>I hold an M.S. in Business Analytics from the University of Alabama in Huntsville and a B.S. in Computer Science — which means I bring both the financial rigor and the technical fluency to automate what should be automated and analyze what actually matters.</p>
+    </div>
+    <div class="about-skills">
+      <div class="skill-row">
+        <div class="skill-name">Modeling & Valuation</div>
+        <div class="skill-tags">DCF, IRR, NPV, 3-Statement, M&A</div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-name">FP&A & Planning</div>
+        <div class="skill-tags">Budgeting, Forecasting, Variance (P/V/M), P&L</div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-name">Banking & Risk</div>
+        <div class="skill-tags">Portfolio Analysis, Credit Risk, IRR/NPV</div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-name">Accounting & Close</div>
+        <div class="skill-tags">Month-End, GL Validation, Accruals, Recons</div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-name">Tools</div>
+        <div class="skill-tags">Excel, Power BI, Tableau, SQL, Python, SAP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sec-divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">Experience</div>
+  <div class="sec-title">Where I've worked.</div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Mar 2024 – Present</div>
+        <div class="exp-company">Citigroup</div>
+        <div class="exp-loc">Huntsville, USA</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Financial Analyst</div>
+        <ul class="exp-bullets">
+          <li>Presented monthly P&L and actual vs. budget vs. forecast analysis to senior leadership, translating price/volume/mix variance drivers into business context that informed budget reallocations.</li>
+          <li>Led end-to-end forecast consolidation across 5+ business units with zero restatements, shaping quarterly planning outcomes for finance leadership.</li>
+          <li>Improved forecast accuracy by 15–20% through integrated 3-statement models with scenario and sensitivity analysis.</li>
+          <li>Cut manual reporting time by 40% by engineering automated SQL and Excel workflows.</li>
+          <li>Built Power BI and Tableau dashboards adopted across C-suite review cycles for real-time decision-making.</li>
+          <li>Supported month-end close including GL validation, accruals, and reconciliations — resolving discrepancies exceeding $2M before period close.</li>
+        </ul>
+        <span class="exp-tag">FP&A</span>
+        <span class="exp-tag">Power BI</span>
+        <span class="exp-tag">SQL</span>
+        <span class="exp-tag">3-Statement Modeling</span>
+        <span class="exp-tag">Month-End Close</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2021 – Aug 2022</div>
+        <div class="exp-company">Mahindra & Mahindra Financial Services</div>
+        <div class="exp-loc">India</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Financial Analyst</div>
+        <ul class="exp-bullets">
+          <li>Co-led financial due diligence and valuation on $50M+ M&A transactions as part of a deal team, developing scenario models and credit risk frameworks for deal committees.</li>
+          <li>Built and presented DCF, NPV, and IRR valuation models at board level, translating investment analysis into strategic narratives for capital planning.</li>
+          <li>Performed lending portfolio analysis using financial KPIs and actual vs. forecast variance — communicating credit risk exposure to business leaders.</li>
+          <li>Surfaced multi-million-dollar cost optimization opportunities through profitability analysis, accelerating adoption of improvement programs.</li>
+        </ul>
+        <span class="exp-tag">M&A Valuation</span>
+        <span class="exp-tag">DCF / IRR / NPV</span>
+        <span class="exp-tag">Credit Risk</span>
+        <span class="exp-tag">Portfolio Analysis</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sec-divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">Projects</div>
+  <div class="sec-title">Work that demonstrates the craft.</div>
+  <div class="projects-grid">
+
+    <div class="proj-card">
+      <div class="proj-icon">📊</div>
+      <div class="proj-title">Financial Forecasting & Valuation Model</div>
+      <div class="proj-desc">End-to-end financial forecasting model built from scratch incorporating revenue projections, cost structure analysis, and DCF-based valuation.</div>
+      <div class="proj-highlights">
+        <div class="proj-hl">3-statement integrated model with scenario switching</div>
+        <div class="proj-hl">Sensitivity analysis across 6 revenue and cost drivers</div>
+        <div class="proj-hl">Tableau dashboard for profitability KPI visualization</div>
+        <div class="proj-hl">SQL pipeline for automated data preparation</div>
+      </div>
+      <div class="proj-tools">
+        <span class="proj-tool">Excel</span>
+        <span class="proj-tool">Tableau</span>
+        <span class="proj-tool">SQL</span>
+        <span class="proj-tool">DCF</span>
+        <span class="proj-tool">IRR / NPV</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">⚡</div>
+      <div class="proj-title">Automated Reporting Workflow</div>
+      <div class="proj-desc">Replaced a 12-hour manual monthly reporting process with an automated SQL + Excel pipeline delivering executive-ready outputs in under 90 minutes.</div>
+      <div class="proj-highlights">
+        <div class="proj-hl">40% reduction in total reporting cycle time</div>
+        <div class="proj-hl">Variance flagging logic built into the pipeline</div>
+        <div class="proj-hl">Zero manual data re-entry — full source-to-report automation</div>
+        <div class="proj-hl">Adopted by 3 business units at Citigroup</div>
+      </div>
+      <div class="proj-tools">
+        <span class="proj-tool">SQL</span>
+        <span class="proj-tool">Excel VBA</span>
+        <span class="proj-tool">Power Query</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">🏦</div>
+      <div class="proj-title">Lending Portfolio Performance Dashboard</div>
+      <div class="proj-desc">Interactive Power BI dashboard tracking portfolio KPIs, actual vs. forecast variance, and credit risk exposure across retail and commercial segments.</div>
+      <div class="proj-highlights">
+        <div class="proj-hl">Real-time portfolio performance by segment and geography</div>
+        <div class="proj-hl">Price/volume/mix variance attribution at drill-down level</div>
+        <div class="proj-hl">Monthly review deck auto-generated from dashboard data</div>
+        <div class="proj-hl">Presented to senior leadership for capital allocation decisions</div>
+      </div>
+      <div class="proj-tools">
+        <span class="proj-tool">Power BI</span>
+        <span class="proj-tool">SQL</span>
+        <span class="proj-tool">DAX</span>
+        <span class="proj-tool">Excel</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">🔍</div>
+      <div class="proj-title">M&A Due Diligence Model</div>
+      <div class="proj-desc">Credit risk and valuation framework built for $50M+ financial services M&A transactions — scenario models informing deal committee decisions.</div>
+      <div class="proj-highlights">
+        <div class="proj-hl">Downside / base / upside scenario modeling across 3 deal structures</div>
+        <div class="proj-hl">Credit risk stress-testing framework for portfolio assets</div>
+        <div class="proj-hl">Executive summary deck translated model outputs for board review</div>
+        <div class="proj-hl">Contributed to investment approval decisions at deal committee level</div>
+      </div>
+      <div class="proj-tools">
+        <span class="proj-tool">DCF</span>
+        <span class="proj-tool">IRR / NPV</span>
+        <span class="proj-tool">Excel</span>
+        <span class="proj-tool">Credit Risk</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sec-divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-block">
+    <div class="contact-left">
+      <div class="contact-title">Let's talk <em>finance.</em></div>
+      <div class="contact-sub">Open to FP&A, Financial Analyst, and Corporate Finance roles in Atlanta and remote. Always happy to connect.</div>
+    </div>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:prapulnanjala2@gmail.com">
+        <div class="contact-link-icon">✉</div>
+        prapulnanjala2@gmail.com
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/prapul-n-a65a07209/" target="_blank">
+        <div class="contact-link-icon">in</div>
+        linkedin.com/in/prapul-n-a65a07209
+      </a>
+      <a class="contact-link" href="Prapul_Nanjala_Final_Resume.docx" download>
+        <div class="contact-link-icon">↓</div>
+        Download Resume (.docx)
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Prapul Nanjala · Financial Analyst · Atlanta, GA
+</footer>
+
+</body>
+</html>
